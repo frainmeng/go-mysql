@@ -5,13 +5,13 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/frainmeng/go-mysql/mysql"
+	"github.com/frainmeng/go-mysql/replication"
+	"github.com/frainmeng/go-mysql/schema"
 	"github.com/pingcap/errors"
 	"github.com/pingcap/parser/ast"
 	uuid "github.com/satori/go.uuid"
 	"github.com/siddontang/go-log/log"
-	"github.com/siddontang/go-mysql/mysql"
-	"github.com/siddontang/go-mysql/replication"
-	"github.com/siddontang/go-mysql/schema"
 )
 
 func (c *Canal) startSyncer() (*replication.BinlogStreamer, error) {
@@ -137,6 +137,9 @@ func (c *Canal) runSyncBinlog() error {
 				return errors.Trace(err)
 			}
 			if err := c.eventHandler.OnGTID(gtid); err != nil {
+				return errors.Trace(err)
+			}
+			if err := c.eventHandler.OnGTIDNew(e); err != nil {
 				return errors.Trace(err)
 			}
 		case *replication.QueryEvent:

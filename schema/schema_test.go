@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/frainmeng/go-mysql/client"
+	_ "github.com/frainmeng/go-mysql/driver"
 	. "github.com/pingcap/check"
-	"github.com/siddontang/go-mysql/client"
-	_ "github.com/siddontang/go-mysql/driver"
 )
 
 // use docker mysql for test
