@@ -139,7 +139,7 @@ func (c *Canal) runSyncBinlog() error {
 			if err := c.eventHandler.OnGTID(gtid); err != nil {
 				return errors.Trace(err)
 			}
-			if err := c.eventHandler.OnGTIDNew(e); err != nil {
+			if err := c.eventHandler.OnGTIDMTS(pos, e); err != nil {
 				return errors.Trace(err)
 			}
 		case *replication.QueryEvent:
